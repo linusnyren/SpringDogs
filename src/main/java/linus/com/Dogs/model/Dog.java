@@ -13,7 +13,16 @@ public class Dog extends AuditModel {
             initialValue = 1
     )
     private Long dogId;
+    private String name, race, color;
+    private int age;
 
+    @Override
+    public String toString(){
+        return dogId +" " +name +" " +race +" " +color +" " +age;
+    }
+    public Long getId(){
+        return dogId;
+    }
     public String getName() {
         return name;
     }
@@ -46,6 +55,5 @@ public class Dog extends AuditModel {
         this.age = age;
     }
 
-    private String name, race, color;
-    private int age;
+
 }
