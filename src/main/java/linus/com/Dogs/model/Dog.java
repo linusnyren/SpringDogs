@@ -12,16 +12,16 @@ public class Dog extends AuditModel {
             sequenceName = "dog_sequence",
             initialValue = 1
     )
-    private Long dogId;
+    private Long id;
     private String name, race, color;
     private int age;
 
     @Override
     public String toString(){
-        return dogId +" " +name +" " +race +" " +color +" " +age;
+        return id +" " +name +" " +race +" " +color +" " +age;
     }
     public Long getId(){
-        return dogId;
+        return id;
     }
     public String getName() {
         return name;

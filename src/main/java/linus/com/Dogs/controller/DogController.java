@@ -6,8 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.BASE64Decoder;
 
+import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -20,6 +27,7 @@ public class DogController {
     public List<Dog> getDogs(){
         return DogRepo.findAll();
     }
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity<Dog> saveDog(@RequestBody Dog newDog) {
         DogRepo.save(newDog);
@@ -30,19 +38,17 @@ public class DogController {
         Dog foundDog = DogRepo.findById(id).get();
         return new ResponseEntity<Dog>(foundDog, HttpStatus.OK);
     }
-    @RequestMapping(value = "/{id}", method=RequestMethod.PUT)
-    public ResponseEntity<Dog> updateDog(@PathVariable Long id, @RequestBody Dog alterDog){
-        Dog dogfromdb = DogRepo.findByDogId(id).get(0);
-        dogfromdb.setAge(alterDog.getAge());
-        dogfromdb.setColor(alterDog.getColor());
-        dogfromdb.setName(alterDog.getName());
-        dogfromdb.setRace(alterDog.getRace());
+    @RequestMapping(value = "/", method=RequestMethod.PUT)
+    public ResponseEntity<Dog> updateDog(@RequestBody Dog alterDog){
+        Dog dogfromdb = DogRepo.findByid(alterDog.getId()).get(0);
+        dogfromdb = alterDog;
         DogRepo.save(dogfromdb);
         return new ResponseEntity<Dog>(dogfromdb, HttpStatus.OK);
     }
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public ResponseEntity<Dog> deleteDog(@RequestBody Dog deleteDog){
-       System.out.println(deleteDog.toString());
+        DogRepo.delete(deleteDog);
         return new ResponseEntity<Dog>(deleteDog, HttpStatus.OK);
     }
+
 }
