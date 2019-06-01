@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,11 @@ public class DogController {
 
     @GetMapping("/dogs")
     public List<Dog> getDogs(){
+        if (DogRepo.findAll().size() == 0){
+            List<Dog> fakeList = new ArrayList<>();
+            fakeList.add(new Dog((long) 1, "FakeDoggo", "Rottweiler", "Brown", 4));
+            return fakeList;
+        }
         return DogRepo.findAll();
     }
 

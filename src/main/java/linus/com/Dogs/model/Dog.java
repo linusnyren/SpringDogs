@@ -16,6 +16,17 @@ public class Dog extends AuditModel {
     private String name, race, color;
     private int age;
 
+    //Empty constructor neeeded in conjunction to a custom one.
+    public Dog(){}
+
+    public Dog(Long id, String name, String race, String color, int age) {
+        this.id = id;
+        this.name = name;
+        this.race = race;
+        this.color = color;
+        this.age = age;
+    }
+
     @Override
     public String toString(){
         return id +" " +name +" " +race +" " +color +" " +age;
